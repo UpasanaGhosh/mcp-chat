@@ -40,10 +40,10 @@ def edit_document(
 
 
 @mcp.tool(
-    name="list_docs",
+    name="list_docIDs",
     description="Return a list of all document IDs."
 )
-def list_docs():
+def list_documentIDs():
     return list(docs.keys())
 
 # TODO: Write a resource to return the contents of a particular doc

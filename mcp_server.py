@@ -1,4 +1,4 @@
-from dataclasses import Field
+from pydantic import Field
 
 from mcp.server.fastmcp import FastMCP
 
@@ -37,6 +37,7 @@ def edit_document(
     if doc_id not in docs:
         raise ValueError(f"Document with id '{doc_id}' not found.")
     docs[doc_id] = docs[doc_id].replace(old_string, new_string)
+    return docs[doc_id]
 
 
 @mcp.tool(

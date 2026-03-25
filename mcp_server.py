@@ -47,7 +47,7 @@ def list_documents()-> list[str]:
 @mcp.resource("docs://documents/{doc_type}/{doc_id}", mime_type="text/plain")
 def get_document(doc_type: str, doc_id: str) -> str:
     if doc_id not in docs:
-        raise ValueError(f"Document with id '{doc_id}' not found.")
+        raise ValueError(f"Document with id '{doc_id}' not found!")
     return docs[doc_id]
 
 # TODO: Write a prompt to rewrite a doc in markdown format

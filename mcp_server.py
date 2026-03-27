@@ -47,8 +47,8 @@ def edit_document(
 def list_documents()-> list[str]:
     return list(docs.keys())
 
-@mcp.resource("docs://documents/{doc_type}/{doc_id}", mime_type="text/plain")
-def get_document(doc_type: str, doc_id: str) -> str:
+@mcp.resource("docs://documents/{doc_id}", mime_type="text/plain")
+def get_document(doc_id: str) -> str:
     if doc_id not in docs:
         raise ValueError(f"Document with id '{doc_id}' not found.")
     return docs[doc_id]
@@ -79,6 +79,24 @@ def format_document(
     return [base.UserMessage(prompt)]
 
 # TODO: Write a prompt to summarize a doc
+@mcp.prompt(
+    name="summarize",
+    description="Summarize the content of a document. The document content is provided as input and the output should be a concise summary of the document."
+)
+def summarize_document(
+    doc_id: str = Field(description="ID of the document to summarize")
+) -> list[base.Message]:    
+    prompt = f"""
+    Your goal is to summarize a document into 2-3 lines. The id of the document you need to summarize is:
+
+    <document_id>
+    {doc_id}
+    </document_id>
+
+    Read through the document and provide a concise summary of the key points and information contained in the document.
+    """
+
+    return [base.UserMessage(prompt)]
 
 
 if __name__ == "__main__":
